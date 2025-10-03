@@ -59,7 +59,7 @@ public class Robot {
                 case "move" -> move(command);
                 case "turn" -> turn(command);
                 case "set" -> set(command);
-                case "start" -> start(command);
+                case "start" -> start();
                 case "stop" -> stop(command);
                 default -> System.out.println("Unknown command");
             }
@@ -85,8 +85,8 @@ public class Robot {
         System.out.println("STATE " + this.state);
     }
 
-    public void start(Command command) {
-        System.out.println("START with " + this.state);
+    public void start() {
+        System.out.println("START WITH " + this.state);
     }
 
     public void stop(Command command) {
