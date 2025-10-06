@@ -27,10 +27,10 @@ class Command {
 @Getter
 class Position {
 
-    Integer x;
-    Integer y;
+    Double x;
+    Double y;
 
-    public Position(Integer x, Integer y) {
+    public Position(Double x, Double y) {
         this.x = x;
         this.y = y;
     }
@@ -69,8 +69,8 @@ public class Robot {
     public void move(Command command) {
         double distance = Double.parseDouble(command.value);
         double radians = Math.toRadians(this.angle);
-        this.position.x = (int) Math.round(distance * Math.cos(radians));
-        this.position.y = (int) Math.round(distance * Math.sin(radians));
+        this.position.x += (double) Math.round(distance * Math.cos(radians));
+        this.position.y += (double) Math.round(distance * Math.sin(radians));
         System.out.println(this.position);
     }
 
@@ -102,12 +102,12 @@ public class Robot {
                 new Command("start", null),
                 new Command("stop", null),
                 new Command("move", "150"),
-                new Command("turn", "35"),
+                new Command("turn", "65"),
                 new Command("set", "brush"),
                 new Command("move", "30"),
                 new Command("stop", null)
         );
-        Robot robot = new Robot(new Position(0, 0), 0);
+        Robot robot = new Robot(new Position(0.0, 0.0), 0);
         robot.executeCommand(commansList);
     }
 }
