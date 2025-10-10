@@ -4,6 +4,10 @@ import java.util.List;
 
 public class PureRobot {
 
+    // RobotState и Command реализованы как record
+    // Для того, чтобы избавится от явных мутабельных элементов
+    // Все поля final как и сами классы
+
     private void transferToRobot(String command) {
         System.out.println(command);
     }
