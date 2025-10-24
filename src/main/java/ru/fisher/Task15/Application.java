@@ -26,7 +26,7 @@ public class Application {
         handler.handle(new MoveCommand(75.0));
         handler.handle(new StopCommand());
 
-        System.out.println("Undo/Redo пример");
+        System.out.println("=== Undo/Redo пример ===");
 
         handler.undo();
         handler.undo();
@@ -37,7 +37,7 @@ public class Application {
         handler.undo();
 
 
-        System.out.println("Итоговое состояние робота: после 2 undo() 1 redo() " + handler.getCurrentState());
+        System.out.println("Итоговое состояние робота: после 2 undo() и 1 redo() " + handler.getCurrentState());
 
         System.out.println("Показать 6-ю команду");
         System.out.println(eventStore.getStateAt(6));
