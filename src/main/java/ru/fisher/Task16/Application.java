@@ -24,7 +24,7 @@ public class Application {
         StartProcessor startProcessor = new StartProcessor(eventStore, communicator);
         StopProcessor stopProcessor = new StopProcessor(eventStore, communicator);
 
-        CommandHandler handler = new CommandHandler(eventStore, );
+        CommandHandler handler = new CommandHandler(eventStore);
 
         handler.handle(new MoveCommand(100.0));
         handler.handle(new MoveCommand(40.0));
