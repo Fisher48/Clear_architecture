@@ -1,7 +1,6 @@
 package ru.fisher.Task16;
 
 import ru.fisher.Task16.models.State;
-import ru.fisher.Task16.commands.StopCommand;
 import ru.fisher.Task16.commands.*;
 import ru.fisher.Task16.interfaces.RobotCommunicator;
 import ru.fisher.Task16.processors.*;
