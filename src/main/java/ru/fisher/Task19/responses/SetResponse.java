@@ -1,4 +1,4 @@
-package ru.fisher.Task19.responces;
+package ru.fisher.Task19.responses;
 
 import ru.fisher.Task19.State;
 

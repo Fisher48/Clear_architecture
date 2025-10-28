@@ -18,15 +18,15 @@ public class Nodes {
     }
 
     public static Node set(State state, RobotCommunicator communicator, Node next) {
-        return new SetNode(setResponse -> next, state, communicator);
+        return new SetNode(state, communicator, setResponse -> next);
+    }
+
+    public static Node start(RobotCommunicator communicator, Node next) {
+        return new StartNode(startResponse -> next, communicator);
     }
 
     public static Node stop(RobotCommunicator communicator) {
         return new StopNode(null, communicator);
-    }
-
-    public static Node start(RobotCommunicator communicator) {
-        return new StartNode(null, communicator);
     }
 
 }

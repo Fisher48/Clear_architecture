@@ -6,7 +6,7 @@ import ru.fisher.Task19.RobotState;
 import ru.fisher.Task19.State;
 import ru.fisher.Task19.interfaces.Node;
 import ru.fisher.Task19.interfaces.RobotCommunicator;
-import ru.fisher.Task19.responces.SetResponse;
+import ru.fisher.Task19.responses.SetResponse;
 
 import java.util.function.Function;
 
@@ -16,7 +16,7 @@ public class SetNode extends CommandNode<SetResponse> {
 
     private final RobotCommunicator communicator;
 
-    protected SetNode(Function<SetResponse, Node> next, State newMode, RobotCommunicator communicator) {
+    public SetNode(State newMode, RobotCommunicator communicator, Function<SetResponse, Node> next) {
         super(next);
         this.newMode = newMode;
         this.communicator = communicator;
@@ -45,7 +45,7 @@ public class SetNode extends CommandNode<SetResponse> {
 
         RobotState newState = new RobotState(state.x(), state.y(), state.angle(), newMode, newWaterLevel, newSoapLevel);
         SetResponse response = new SetResponse(newMode, true);
-        communicator.transferToRobot("STATE " + newMode + " (water: " + newWaterLevel + ", soap: " + newSoapLevel + ")");
+        communicator.transferToRobot("STATE -> " + newMode + " (water: " + newWaterLevel + ", soap: " + newSoapLevel + ")");
         return new Result<>(response, newState);
     }
 }
