@@ -1,35 +1,34 @@
 package ru.fisher.Task21;
 
 
+import ru.fisher.Task21.commands.*;
 import ru.fisher.Task21.interfaces.Robot;
+import ru.fisher.Task21.interfaces.RobotCommunicator;
 import ru.fisher.Task21.models.RobotState;
 import ru.fisher.Task21.models.State;
 
-record RealRobot(RobotState robotState) implements Robot {
+record RealRobot(RobotState robotState, RobotCommunicator communicator) implements Robot {
 
     @Override
     public Robot move(double distance) {
-        double radians = Math.toRadians(robotState.angle());
-        double newX = robotState.x() + Math.round(distance * Math.cos(radians));
-        double newY = robotState.y() + Math.round(distance * Math.sin(radians));
-        RobotState state = new RobotState(newX, newY, robotState.angle(), robotState.state());
-        System.out.println("POS " + newX + ", " + newY);
-        return new RealRobot(state);
+        RobotState newState = new MoveCommand(distance).execute(robotState);
+        communicator.transferToRobot("POS: " + newState.x() + ", " + newState.y());
+        return new RealRobot(newState, communicator);
     }
 
     @Override
     public Robot set(State newState) {
-        RobotState state = new RobotState(robotState.x(), robotState.y(), robotState.angle(), newState);
-        System.out.println("STATE: " + newState);
-        return new RealRobot(state);
+        RobotState state = new SetCommand(newState).execute(robotState);
+        communicator.transferToRobot("STATE: " + state.state());
+        return new RealRobot(state, communicator);
     }
 
     @Override
     public Robot turn(int delta) {
         int newAngle = (robotState.angle() + delta) % 360;
-        RobotState state = new RobotState(robotState.x(), robotState.y(), newAngle, robotState.state());
-        System.out.println("ANGLE: " + newAngle);
-        return new RealRobot(state);
+        RobotState newState = new TurnCommand(newAngle).execute(robotState);
+        communicator.transferToRobot("ANGLE: " + newState.angle());
+        return new RealRobot(newState, communicator);
     }
 
     @Override
@@ -39,16 +38,16 @@ record RealRobot(RobotState robotState) implements Robot {
 
     @Override
     public Robot start() {
-        RobotState state = new RobotState(robotState.x(), robotState.y(), robotState.angle(), robotState.state());
-        System.out.println("START");
-        return new RealRobot(state);
+        RobotState newState = new StartCommand().execute(robotState);
+        communicator.transferToRobot("START");
+        return new RealRobot(newState, communicator);
     }
 
     @Override
     public Robot stop() {
-        RobotState state = new RobotState(robotState.x(), robotState.y(), robotState.angle(), robotState.state());
-        System.out.println("STOP");
-        return new RealRobot(state);
+        RobotState newState = new StopCommand().execute(robotState);
+        communicator.transferToRobot("STOP");
+        return new RealRobot(newState, communicator);
     }
 
 }
